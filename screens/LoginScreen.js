@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, SafeAreaView, Pressable } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView, Pressable,Alert } from "react-native";
 import React, { useEffect } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { Entypo } from "@expo/vector-icons";
@@ -7,10 +7,9 @@ import { AntDesign } from '@expo/vector-icons';
 import * as AppAuth from "expo-app-auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
-
-
+import { authorize } from "react-native-app-auth";
 const LoginScreen = () => {
-    //const navigation = useNavigation();
+    // const navigation = useNavigation();
     // useEffect(() => {
     //     const checkTokenValidity = async () => {
     //         const accessToken = await AsyncStorage.getItem("token");
@@ -47,10 +46,11 @@ const LoginScreen = () => {
     //                 "playlist-read-collaborative",
     //                 "playlist-modify-public"
     //             ],
-    //             redirectUrl: "exp://192.168.24.62:8081/--/spotify-auth-callback"
+    //             redirectUrl: "exp://localhost:8081/--/spotify-auth-callback",
+    //             usePKCE: true,
     //         };
 
-    //         const result = await AppAuth.authAsync(config);
+    //         const result = await authorize(config);
     //         console.log(result);
 
     //         if (result.accessToken) {
@@ -64,6 +64,10 @@ const LoginScreen = () => {
     //         // Handle the error here, e.g., show an error message to the user.
     //     }
     // }
+     const navigation = useNavigation();
+     const handleSpotifySignIn = () => {
+         navigation.replace("Main");
+     };
     return (
         <LinearGradient colors={["#040306", "#131624"]} style={{ flex: 1 }}>
             <SafeAreaView>
@@ -88,7 +92,7 @@ const LoginScreen = () => {
 
                 <View style={{ height: 80 }} />
                 <Pressable
-                    
+                    onPress={handleSpotifySignIn}
                     style={{
                         backgroundColor: "#1DB954",
                         padding: 10,
